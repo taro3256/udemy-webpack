@@ -1,5 +1,6 @@
 const path = require('path')
 const HtmlWebPackPlugin = require('html-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 // フルパスにする(outputはフルパスでなければならない)
 const outputPath = path.resolve(__dirname, 'dist')
@@ -19,16 +20,9 @@ module.exports = {
                 loader: "babel-loader" 
             },
             {
-                test: /\.css$/,
+                test: /\.(sc|c)ss$/,
                 use: [
-                    'style-loader',
-                    'css-loader',
-                ],
-            },
-            {
-                test: /\.scss$/,
-                use: [
-                    'style-loader',
+                    MiniCssExtractPlugin.loader,
                     'css-loader',
                     'sass-loader',
                 ],
@@ -54,6 +48,9 @@ module.exports = {
         new HtmlWebPackPlugin({
             template: './src/index.html',
             filrname: './index.html'
+        }),
+        new MiniCssExtractPlugin({
+            filename: '[name].[hash].css'
         })
     ]
 }

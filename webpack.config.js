@@ -1,4 +1,5 @@
 const path = require('path')
+const HtmlWebPackPlugin = require('html-webpack-plugin')
 
 // フルパスにする(outputはフルパスでなければならない)
 const outputPath = path.resolve(__dirname, 'dist')
@@ -12,6 +13,11 @@ module.exports = {
     },
     module: {
         rules: [
+            {
+                test: /\.jsx?$/,
+                exclude: /node_modules/,
+                loader: "babel-loader" 
+            },
             {
                 test: /\.css$/,
                 use: [
@@ -35,9 +41,19 @@ module.exports = {
                     name: '.images/[name].[ext]'
                 }
             },
+            {
+                test: /\.html$/,
+                loader: 'html-loader'
+            }
         ]
     },
     devServer: {
         contentBase: outputPath,
     },
+    plugins: [
+        new HtmlWebPackPlugin({
+            template: './src/index.html',
+            filrname: './index.html'
+        })
+    ]
 }

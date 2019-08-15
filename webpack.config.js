@@ -6,7 +6,7 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 // フルパスにする(outputはフルパスでなければならない)
 const outputPath = path.resolve(__dirname, 'dist')
-console.log({outputPath})
+console.log({ outputPath })
 
 module.exports = {
     entry: './src/index.js',
@@ -19,7 +19,7 @@ module.exports = {
             {
                 test: /\.jsx?$/,
                 exclude: /node_modules/,
-                loader: "babel-loader" 
+                loader: "babel-loader"
             },
             {
                 test: /\.(sc|c)ss$/,
@@ -64,6 +64,7 @@ module.exports = {
             }
         }),
         new OptimizeCSSAssetsPlugin({})
-    ],
-    }
+        ],
+    },
+    devtool: 'eval-source-map'
 }
